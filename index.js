@@ -2,7 +2,7 @@
 const exp = require('express');
 const mysql = require('mysql');
 const body_parser = require('body-parser');
-var request = require("request");
+//var request = require("request");
 
 const app = exp();
 
@@ -48,7 +48,6 @@ app.get('/',function(req,res){
 
 app.post('/register',function(req,res){
 console.log("register trigger");
-
 //res.send("register")
 //app.post('/r',function(r,re){
     //res.send("execute")
