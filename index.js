@@ -108,11 +108,11 @@ console.log("register trigger");
 //})
 
 //login
-app.get("/login",function(req,res){
-    res.sendFile(__dirname + '/login.html');
+//app.get("/login",function(req,res){
+  //  res.sendFile(__dirname + '/login.html');
     //res.send('sam');
-})
-app.post("/auth",function(req,res){
+//})
+app.post("/login",function(req,res){
     var username = req.body.name;
     var password = req.body.password;
     //res.send("login trigged")
