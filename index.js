@@ -49,7 +49,7 @@ app.get('/',function(req,res){
 app.post('/register',function(req,res){
 console.log("register trigger");
 request({
-    url: url,
+    url: "https://frozen-badlands-76835.herokuapp.com/register",
     json: true
 }, function (error, response, body) {
 
