@@ -48,15 +48,7 @@ app.get('/',function(req,res){
 
 app.post('/register',function(req,res){
 console.log("register trigger");
-request({
-    url: "https://frozen-badlands-76835.herokuapp.com/register",
-    json: true
-}, function (error, response, body) {
 
-    if (!error && response.statusCode === 200) {
-        console.log(body) // Print the json response
-    }
-})
 //res.send("register")
 //app.post('/r',function(r,re){
     //res.send("execute")
