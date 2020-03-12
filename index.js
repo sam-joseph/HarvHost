@@ -2,6 +2,7 @@
 const exp = require('express');
 const mysql = require('mysql');
 const body_parser = require('body-parser');
+var request = require("request");
 
 const app = exp();
 
@@ -47,6 +48,15 @@ app.get('/',function(req,res){
 
 app.post('/register',function(req,res){
 console.log("register trigger");
+request({
+    url: url,
+    json: true
+}, function (error, response, body) {
+
+    if (!error && response.statusCode === 200) {
+        console.log(body) // Print the json response
+    }
+})
 //res.send("register")
 //app.post('/r',function(r,re){
     //res.send("execute")
