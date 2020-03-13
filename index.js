@@ -52,12 +52,13 @@ console.log("register trigger");
 //app.post('/r',function(r,re){
     //res.send("execute")
     //get details from users
-    var username = req.body.name;
-    var emailid = req.body.email;
-    var aadharno = req.body.aadhar;
-    var phone = req.body.mobile;
-    var password = req.body.password;
-    var usertype = req.body.usertype;
+    console.log(req.body);
+    var username = req.body.json['name'];
+    var emailid = req.body.json['email'];
+    var aadharno = req.body.json['aadhar'];
+    var phone = req.body.json['mobile'];
+    var password = req.body.json['password'];
+    var usertype = req.body.json['usertype'];
 
     //Establish query
     //con.query("use sam;",function(error,result){
