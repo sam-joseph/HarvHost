@@ -64,7 +64,7 @@ console.log("register trigger");
     var confirmpassword = req.body.confirmpassword;
     var licid = req.body.licid;
 console.log(username)
-console.log(emailid)
+//console.log(emailid)
     //Establish query
     //con.query("use sam;",function(error,result){
      // if(error)
@@ -73,7 +73,7 @@ console.log(emailid)
     //  }
      // else
       //{
-          con.query("select * from U42YZEoduq.FarmerDetails where aadhar_no='"+aadharno+"'",function(err,re){
+          con.query("select * from U42YZEoduq.FarmerDetail where aadharNo='"+aadharno+"'",function(err,re){
               if(err)
               {
                   throw err;
@@ -94,7 +94,7 @@ console.log(emailid)
                     console.log("read user details")
                     if(usertype=="F")
                     {
-                     con.query("insert into U42YZEoduq.FarmerDetails(userName,,aadharNo,phoneNo,usertype,motorId,password,confirmPassword) values('"+username+"','"+aadharno+"','"+phoneno+"','"+usertype+"','"+motorid+"','"+password+"','"+confirmpassword+"');",function(e,r){
+                     con.query("insert into U42YZEoduq.FarmerDetail(userName,aadharNo,phoneNo,usertype,motorId,password,confirmPassword) values('"+username+"','"+aadharno+"','"+phoneno+"','"+usertype+"','"+motorid+"','"+password+"','"+confirmpassword+"');",function(e,r){
                         //con.query("insert into users(username) values('"+username+"');",function(e,r){ 
                      
                      if(e)
@@ -108,21 +108,7 @@ console.log(emailid)
                       })
                     }
 
-                    if(usertype=="S")
-                    {
-                     con.query("insert into U42YZEoduq.SellerDetails(userName,,aadharNo,phoneNo,usertype,licId,password,confirmPassword) values('"+username+"','"+aadharno+"','"+phone+"','"+usertype+"','"+licid+"','"+password+"','"+confirmpassword+"');",function(e,r){
-                        //con.query("insert into users(username) values('"+username+"');",function(e,r){ 
-                     
-                     if(e)
-                          {
-                              throw e;
-                          }
-                          else{
-                           console.log("query executed sucess")
-                           res.send("query executed insert")
-                          }
-                      })
-                    }
+                   
 
                     }
                     
@@ -140,7 +126,23 @@ console.log(emailid)
     //con.end();
 //});
         })
-    
+    /*
+     if(usertype=="S")
+                    {
+                     con.query("insert into U42YZEoduq.SellerDetails(userName,,aadharNo,phoneNo,usertype,licId,password,confirmPassword) values('"+username+"','"+aadharno+"','"+phone+"','"+usertype+"','"+licid+"','"+password+"','"+confirmpassword+"');",function(e,r){
+                        //con.query("insert into users(username) values('"+username+"');",function(e,r){ 
+                     
+                     if(e)
+                          {
+                              throw e;
+                          }
+                          else{
+                           console.log("query executed sucess")
+                           res.send("query executed insert")
+                          }
+                      })
+                    }
+    */
 //})
 
 //login
