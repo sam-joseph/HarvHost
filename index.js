@@ -46,20 +46,25 @@ app.get('/',function(req,res){
 });
 
 
-app.post('/register',function(req,res){
+app.post('/Farmer/Register',function(req,res){
 console.log("register trigger");
 //res.send("register")
 //app.post('/r',function(r,re){
     //res.send("execute")
     //get details from users
-    console.log(req.body);
-    var username = req.body.name;
-    var emailid = req.body.email;
-    var aadharno = req.body.aadhar;
-    var phone = req.body.mobile;
-    var password = req.body.password;
+   // console.log(req.body);
+  //var name='\'name\'';
+    var username = req.body.username;
+   // console.log("name");
+    var aadharno = req.body.aadharno;
+    var phoneno = req.body.phoneno;
     var usertype = req.body.usertype;
-
+    var motorid = req.body.motorid;
+    var password = req.body.password;
+    var confirmpassword = req.body.confirmpassword;
+    var licid = req.body.licid;
+console.log(username)
+console.log(emailid)
     //Establish query
     //con.query("use sam;",function(error,result){
      // if(error)
@@ -68,7 +73,7 @@ console.log("register trigger");
     //  }
      // else
       //{
-          con.query("select * from U42YZEoduq.users where aadhar_no='"+aadharno+"'",function(err,re){
+          con.query("select * from U42YZEoduq.FarmerDetails where aadhar_no='"+aadharno+"'",function(err,re){
               if(err)
               {
                   throw err;
@@ -84,10 +89,30 @@ console.log("register trigger");
                   }
                   else{
                       //read user details
-                      
+                      if(password==confirmpassword)
+                      {
                     console.log("read user details")
-                     con.query("insert into U42YZEoduq.users(username,email_id,aadhar_no,mobile,password,usertype) values('"+username+"','"+emailid+"','"+aadharno+"','"+phone+"','"+password+"','"+usertype+"');",function(e,r){
+                    if(usertype=="F")
+                    {
+                     con.query("insert into U42YZEoduq.FarmerDetails(userName,,aadharNo,phoneNo,usertype,motorId,password,confirmPassword) values('"+username+"','"+aadharno+"','"+phoneno+"','"+usertype+"','"+motorid+"','"+password+"','"+confirmpassword+"');",function(e,r){
                         //con.query("insert into users(username) values('"+username+"');",function(e,r){ 
+                     
+                     if(e)
+                          {
+                              throw e;
+                          }
+                          else{
+                           console.log("query executed sucess for farmer")
+                           res.send("query executed insert for farmer")
+                          }
+                      })
+                    }
+
+                    if(usertype=="S")
+                    {
+                     con.query("insert into U42YZEoduq.SellerDetails(userName,,aadharNo,phoneNo,usertype,licId,password,confirmPassword) values('"+username+"','"+aadharno+"','"+phone+"','"+usertype+"','"+licid+"','"+password+"','"+confirmpassword+"');",function(e,r){
+                        //con.query("insert into users(username) values('"+username+"');",function(e,r){ 
+                     
                      if(e)
                           {
                               throw e;
@@ -97,6 +122,15 @@ console.log("register trigger");
                            res.send("query executed insert")
                           }
                       })
+                    }
+
+                    }
+                    
+                    else
+                    {
+                        res.send("password does not match");
+                        console.log("password does not match");
+                    }
                     //res.send("read user details")
                    // con.end();
                   }
