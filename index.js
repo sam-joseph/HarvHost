@@ -159,7 +159,7 @@ console.log(username)
                             }
                             else{
                              console.log("query executed sucess for farmer")
-                             res.send("query executed insert for farmer")
+                             res.send("1")
                             }
                         })
                      // }
