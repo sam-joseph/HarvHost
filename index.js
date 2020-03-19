@@ -170,6 +170,7 @@ console.log("register trigger");
 app.post("/Login",function(req,res){
     var username = req.body.name;
     var password = req.body.password;
+    var usertype = req.body.usertype;
     //res.send("login trigged")
     console.log("login trigged")
     if(usertype=="F")
