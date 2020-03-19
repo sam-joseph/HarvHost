@@ -45,17 +45,10 @@ app.get('/',function(req,res){
     res.send(' page is ')
 });
 
-
+//signup
 app.post('/Register',function(req,res){
 console.log("register trigger");
-//res.send("register")
-//app.post('/r',function(r,re){
-    //res.send("execute")
-    //get details from users
-   // console.log(req.body);
-  //var name='\'name\'';
     var username = req.body.username;
-   // console.log("name");
     var aadharno = req.body.aadharno;
     var phoneno = req.body.phoneno;
     var usertype = req.body.usertype;
@@ -63,14 +56,6 @@ console.log("register trigger");
     var password = req.body.password;
     var confirmpassword = req.body.confirmpassword;
     var licid = req.body.licid;
-console.log(username)
-//console.log(emailid)
-    //Establish query
-    //con.query("use sam;",function(error,result){
-     // if(error)
-     // {
-      //    throw error;
-    //  }
      if(usertype=="F")
       {
           con.query("select * from U42YZEoduq.FarmerDetail where aadharNo='"+aadharno+"'",function(err,re){
@@ -85,17 +70,16 @@ console.log(username)
                       //user alread registered
                   res.send("user already registered");
           console.log("user already registered")  
-          //con.end();
+          
                   }
                   else{
-                      //read user details
+                    
                       if(password==confirmpassword)
                       {
                     console.log("read user details")
-                    //if(usertype=="F")
-                    //{
+                    
                      con.query("insert into U42YZEoduq.FarmerDetail(userName,aadharNo,phoneNo,usertype,motorId,password,confirmPassword) values('"+username+"','"+aadharno+"','"+phoneno+"','"+usertype+"','"+motorid+"','"+password+"','"+confirmpassword+"');",function(e,r){
-                        //con.query("insert into users(username) values('"+username+"');",function(e,r){ 
+                        
                      
                      if(e)
                           {
@@ -117,15 +101,12 @@ console.log(username)
                         res.send("password does not match");
                         console.log("password does not match");
                     }
-                    //res.send("read user details")
-                   // con.end();
+                    
                   }
         }
         
           })
-    //  }
-    //con.end();
-//});}
+    
         }
         else if(usertype=="S")
         {
@@ -141,17 +122,16 @@ console.log(username)
                         //user alread registered
                     res.send("user already registered");
             console.log("user already registered")  
-            //con.end();
+            
                     }
                     else{
                         //read user details
                         if(password==confirmpassword)
                         {
                       console.log("read user details")
-                      //if(usertype=="F")
-                      //{
+                      
                        con.query("insert into U42YZEoduq.SellerDetails(userName,aadharNo,phoneNo,usertype,licId,password,confirmPassword) values('"+username+"','"+aadharno+"','"+phoneno+"','"+usertype+"','"+licid+"','"+password+"','"+confirmpassword+"');",function(e,r){
-                          //con.query("insert into users(username) values('"+username+"');",function(e,r){ 
+                          
                        
                        if(e)
                             {
@@ -162,7 +142,7 @@ console.log(username)
                              res.send("1")
                             }
                         })
-                     // }
+                    
   
                      
   
@@ -173,8 +153,7 @@ console.log(username)
                           res.send("password does not match");
                           console.log("password does not match");
                       }
-                      //res.send("read user details")
-                     // con.end();
+                      
                     }
           }
           
@@ -187,31 +166,7 @@ console.log(username)
       
         })
     
-
-    /*
-     if(usertype=="S")
-                    {
-                     con.query("insert into U42YZEoduq.SellerDetails(userName,,aadharNo,phoneNo,usertype,licId,password,confirmPassword) values('"+username+"','"+aadharno+"','"+phone+"','"+usertype+"','"+licid+"','"+password+"','"+confirmpassword+"');",function(e,r){
-                        //con.query("insert into users(username) values('"+username+"');",function(e,r){ 
-                     
-                     if(e)
-                          {
-                              throw e;
-                          }
-                          else{
-                           console.log("query executed sucess")
-                           res.send("query executed insert")
-                          }
-                      })
-                    }
-    */
-//})
-
-//login
-//app.get("/login",function(req,res){
-  //  res.sendFile(__dirname + '/login.html');
-    //res.send('sam');
-//})
+        //login
 app.post("/Login",function(req,res){
     var username = req.body.name;
     var password = req.body.password;
@@ -285,7 +240,7 @@ else if(usertype=="S")
         }
     })
 }
-else if(usertype=="A")
+else if(usertype=="A")``
 {
     con.query("select * from U42YZEoduq.Admin where aadharNO ='"+aadharno+"' ",function(err,resu){
         if(err){
@@ -319,92 +274,6 @@ else if(usertype=="A")
         }
     })
 }
-else{
-    res.send("user type not found");
-    console.log("user type not found");
-}
+
 })
 
-//Establish query for insert  from post method
-/*app.post('/register',function(req,res){
-
-    var username = req.body.name;
-
-con.query("use sam;",function(error,result){
-    if(error)
-    {
-throw error;
-    }
-    else
-    {
-        con.query("insert into users(username) values('"+username+"');",function(err,resu){
-            if(err){
-                throw err;
-            }
-            else{
-                console.log('querry executed')
-                res.send("query executed")
-                
-                con.end();
-            }
-        })
-    }
-});
-
-});
-
-//Establish query for insert try
-con.query("use sam;",function(error,result){
-    if(error)
-    {
-throw error;
-    }
-    else
-    {
-        //con.query("select * from users")
-        con.query("insert into users(username) values('joseph')",function(err,resu){
-            if(err){
-                throw err;
-            }
-            else{
-                console.log('querry executed')
-            }
-        })
-    }
-})
-*/
-/*
-var username = req.body.name;
-    var password = req.body.password;
-con.query("select * from U42YZEoduq.users where username ='"+username+"' ",function(err,resu){
-    if(err){
-        throw err;
-    }
-    else
-    {
-        if(resu.length)
-        {
-            con.query("select * from U42YZEoduq.users where username='"+username+"' and password='"+password+"'",function(e,r){
-                if(e){
-                    throw e;
-                }
-                else
-                {
-                    if(r.length){
-                    res.send("open account")
-                    console.log("open account")
-                    }
-                    else{
-                        res.send("incorrect passwored")
-                        console.log("incorrect password")
-                    }
-                }
-            })
-        }
-        else{
-            console.log("user not registered")
-            res.send("user not registered")
-        }
-    }
-})
-*/
