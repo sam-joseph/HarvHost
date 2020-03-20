@@ -168,7 +168,7 @@ console.log("register trigger");
     
         //login
 app.post("/Login",function(req,res){
-    var aadharno = req.body.aadharNO;
+    var aadharno = req.body.aadharno;
     var password = req.body.password;
     var usertype = req.body.usertype;
     //res.send("login trigged")
