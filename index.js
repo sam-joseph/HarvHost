@@ -168,7 +168,7 @@ console.log("register trigger");
     
         //login
 app.post("/Login",function(req,res){
-    var username = req.body.name;
+    var aadharno = req.body.aadharNO;
     var password = req.body.password;
     var usertype = req.body.usertype;
     //res.send("login trigged")
@@ -241,7 +241,7 @@ else if(usertype=="S")
         }
     })
 }
-else if(usertype=="A")``
+else if(usertype=="A")
 {
     con.query("select * from U42YZEoduq.Admin where aadharNO ='"+aadharno+"' ",function(err,resu){
         if(err){
@@ -275,6 +275,11 @@ else if(usertype=="A")``
         }
     })
 }
+else{
+    res.send("user type not found");
+    console.log("user type not found");
+}
+
 
 })
 
