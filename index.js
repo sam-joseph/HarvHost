@@ -57,9 +57,15 @@ console.log("register trigger");
     var password = req.body.password;
     var confirmpassword = req.body.confirmpassword;
     var licid = req.body.licid;
+
+    if(username!=undefined && aadharno!=undefined && phoneno!=undefined && usertype!=undefined && password!=undefined && confirmpassword!=undefined)
+    {
 //usertype = farmer
      if(usertype=="F")
       {
+          if(motorid!=undefined)
+          {
+          console.log(username)
 //checking aadharNo
           con.query("select * from U42YZEoduq.FarmerDetail where aadharNo='"+aadharno+"'",function(err,re){
               if(err)
@@ -110,11 +116,17 @@ console.log("register trigger");
         }
         
           })
-    
+        }
+        else{
+            res.send("field empty");
+            console.log("field empty");
+        }
         }
 //saler
         else if(usertype=="S")
         {
+            if(licid!=undefined)
+            {
 //checking aadharno
             con.query("select * from U42YZEoduq.SellerDetails where aadharNo='"+aadharno+"'",function(err,re){
                 if(err)
@@ -163,16 +175,27 @@ console.log("register trigger");
                     }
           }
           
-            })  
+            }) 
+        }
+        else{
+            res.send("field empty");
+            console.log("field empty");
+        } 
         }
 //user type not found
         else{
             res.send("user type not found");
             console.log("user type not found");
         }
-      
+    }
+    else
+    {
+        res.send("fields empty");
+        console.log("fields empty");
+    }
         })
-    
+
+
 //login
 app.post("/Login",function(req,res){
     var aadharno = req.body.aadharno;
