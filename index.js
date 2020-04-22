@@ -2,18 +2,18 @@
 const exp = require('express');
 const mysql = require('mysql');
 const body_parser = require('body-parser');
-//var request = require("request");
+    //var request = require("request");
 
 const app = exp();
 
-//server listen
+//establish server connection
 var port_number = app.listen(process.env.PORT || 3001);
-//app.listen(port_number);
+    //app.listen(port_number);
 app.listen(port_number,function(){
     console.log("server running")
 });
 
-//Establish connection
+//Establish mysql connection
 const con = mysql.createConnection(
     {
         host: "remotemysql.com",
@@ -24,7 +24,7 @@ const con = mysql.createConnection(
     }
 );
 
-// accept url encoded
+//json encoded
 app.use(body_parser.urlencoded({
     extended: true
 }));
@@ -32,7 +32,7 @@ app.use(body_parser.urlencoded({
 // accept json 
 app.use(body_parser.json());
 
-//connection success or failed
+//mysql connection status
 if(con)
 {
     console.log("connection success");
@@ -48,6 +48,7 @@ app.get('/',function(req,res){
 //signup
 app.post('/Register',function(req,res){
 console.log("register trigger");
+//get data from app
     var username = req.body.username;
     var aadharno = req.body.aadharno;
     var phoneno = req.body.phoneno;
@@ -56,28 +57,31 @@ console.log("register trigger");
     var password = req.body.password;
     var confirmpassword = req.body.confirmpassword;
     var licid = req.body.licid;
+//usertype = farmer
      if(usertype=="F")
       {
+//checking aadharNo
           con.query("select * from U42YZEoduq.FarmerDetail where aadharNo='"+aadharno+"'",function(err,re){
               if(err)
               {
                   throw err;
               }
               else
-              { console.log(re.length)
+              { 
+                  console.log(re.length)
                   if(re.length)
                   {
-                      //user alread registered
+//user alread registered
                   res.send("user already registered");
           console.log("user already registered")  
           
                   }
                   else{
-                    
+//checking password = confirmpassword
                       if(password==confirmpassword)
                       {
                     console.log("read user details")
-                    
+//store data into database
                      con.query("insert into U42YZEoduq.FarmerDetail(userName,aadharNo,phoneNo,usertype,motorId,password,confirmPassword) values('"+username+"','"+aadharno+"','"+phoneno+"','"+usertype+"','"+motorid+"','"+password+"','"+confirmpassword+"');",function(e,r){
                         
                      
@@ -95,7 +99,7 @@ console.log("register trigger");
                    
 
                     }
-                    
+//password != confirmpassword        
                     else
                     {
                         res.send("password does not match");
@@ -108,8 +112,10 @@ console.log("register trigger");
           })
     
         }
+//saler
         else if(usertype=="S")
         {
+//checking aadharno
             con.query("select * from U42YZEoduq.SellerDetails where aadharNo='"+aadharno+"'",function(err,re){
                 if(err)
                 {
@@ -119,17 +125,17 @@ console.log("register trigger");
                 { console.log(re.length)
                     if(re.length)
                     {
-                        //user alread registered
+ //user alread registered
                     res.send("user already registered");
             console.log("user already registered")  
             
                     }
                     else{
-                        //read user details
+//checking password = confirmpassword
                         if(password==confirmpassword)
                         {
                       console.log("read user details")
-                      
+//store data into database
                        con.query("insert into U42YZEoduq.SellerDetails(userName,aadharNo,phoneNo,usertype,licId,password,confirmPassword) values('"+username+"','"+aadharno+"','"+phoneno+"','"+usertype+"','"+licid+"','"+password+"','"+confirmpassword+"');",function(e,r){
                           
                        
@@ -147,7 +153,7 @@ console.log("register trigger");
                      
   
                       }
-                      
+//password != confirmpassword
                       else
                       {
                           res.send("password does not match");
@@ -159,6 +165,7 @@ console.log("register trigger");
           
             })  
         }
+//user type not found
         else{
             res.send("user type not found");
             console.log("user type not found");
@@ -166,15 +173,17 @@ console.log("register trigger");
       
         })
     
-        //login
+//login
 app.post("/Login",function(req,res){
     var aadharno = req.body.aadharno;
     var password = req.body.password;
     var usertype = req.body.usertype;
     //res.send("login trigged")
     console.log("login trigged")
+//farmer
     if(usertype=="F")
     {
+//cheking aadhar no found
 con.query("select * from U42YZEoduq.FarmerDetail where aadharNO ='"+aadharno+"' ",function(err,resu){
     if(err){
         throw err;
@@ -183,6 +192,7 @@ con.query("select * from U42YZEoduq.FarmerDetail where aadharNO ='"+aadharno+"' 
     {
         if(resu.length)
         {
+//checking aadhar no and password match
             con.query("select * from U42YZEoduq.FarmerDetail where aadharNO='"+aadharno+"' and password='"+password+"'",function(e,r){
                 if(e){
                     throw e;
@@ -190,9 +200,11 @@ con.query("select * from U42YZEoduq.FarmerDetail where aadharNO ='"+aadharno+"' 
                 else
                 {
                     if(r.length){
+//aadhar and password match sucess
                     res.send("1")
                     console.log("open account")
                     }
+//password not match
                     else{
                         res.send("incorrect passwored")
                         console.log("incorrect password")
@@ -201,14 +213,17 @@ con.query("select * from U42YZEoduq.FarmerDetail where aadharNO ='"+aadharno+"' 
             })
         }
         else{
+//aadhar no not register
             console.log("user not registered")
             res.send("user not registered")
         }
     }
 })
 }
+//saler
 else if(usertype=="S")
 {
+//checking aadharno found
     con.query("select * from U42YZEoduq.SellerDetails where aadharNO ='"+aadharno+"' ",function(err,resu){
         if(err){
             throw err;
@@ -217,6 +232,7 @@ else if(usertype=="S")
         {
             if(resu.length)
             {
+//checking aadharno and password match
                 con.query("select * from U42YZEoduq.SellerDetails where aadharNO='"+aadharno+"' and password='"+password+"'",function(e,r){
                     if(e){
                         throw e;
@@ -225,9 +241,11 @@ else if(usertype=="S")
                     {
                         if(r.length){
                         res.send("1")
+//aadharno and password match success
                         console.log("open account")
                         }
                         else{
+//password not match
                             res.send("incorrect passwored")
                             console.log("incorrect password")
                         }
@@ -235,14 +253,17 @@ else if(usertype=="S")
                 })
             }
             else{
+//aadhar no not register
                 console.log("user not registered")
                 res.send("user not registered")
             }
         }
     })
 }
+//admin
 else if(usertype=="A")
 {
+//checking aadhar no found
     con.query("select * from U42YZEoduq.Admin where aadharNO ='"+aadharno+"' ",function(err,resu){
         if(err){
             throw err;
@@ -251,6 +272,7 @@ else if(usertype=="A")
         {
             if(resu.length)
             {
+//checking aadharno and password match
                 con.query("select * from U42YZEoduq.Admin where aadharNO='"+aadharno+"' and password='"+password+"'",function(e,r){
                     if(e){
                         throw e;
@@ -258,10 +280,12 @@ else if(usertype=="A")
                     else
                     {
                         if(r.length){
+//aadharno and password match success
                         res.send("1")
                         console.log("open account")
                         }
                         else{
+//password not match
                             res.send("incorrect passwored")
                             console.log("incorrect password")
                         }
@@ -269,6 +293,7 @@ else if(usertype=="A")
                 })
             }
             else{
+//aadharno not register
                 console.log("user not registered")
                 res.send("user not registered")
             }
@@ -276,6 +301,7 @@ else if(usertype=="A")
     })
 }
 else{
+//user type not found
     res.send("user type not found");
     console.log("user type not found");
 }
