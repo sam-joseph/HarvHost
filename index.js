@@ -98,6 +98,8 @@ console.log("register trigger");
                           else{
                            console.log("query executed sucess for farmer")
                            res.send("1")
+                           
+                           //con.query("select (temperature,humidity,moisture) from U42YZEoduq.FarmerAccount where motorId'"+motorid+"'",)
                           }
                       })
                    // }
@@ -224,8 +226,42 @@ con.query("select * from U42YZEoduq.FarmerDetail where aadharNO ='"+aadharno+"' 
                 {
                     if(r.length){
 //aadhar and password match sucess
-                    res.send("1")
+                  // res.send("1")
                     console.log("open account")
+                   con.query("select temperature,humidity,moisture from U42YZEoduq.FarmerAccount where motorId IN (select motorId from U42YZEoduq.FarmerDetail where aadharNO='"+aadharno+"') ",function(erra,resulta)
+                           {
+                               if(erra)
+                               {
+                                   throw(erra)
+                               }
+                               else{
+                                   if(resulta.length)
+                                   {var out=[];
+                                       console.log("motor found");
+                                       out.push("1")
+                                       //for(var i = 0; i<resulta.length; i++ ){     
+                                       // out.push(res[i]);
+                                    out.push(resulta[0].temperature)
+                                      out.push(resulta[0].humidity)
+                                      out.push(resulta[0].moisture)
+                                      console.log(out[0]);
+                                      console.log(out[1])
+                                      console.log(out[2])
+                                      console.log(out[3]);
+                                      console.log(out);
+                                      res.send(out);
+
+                            //}
+                                  //res.render('user-list', { title: 'User List', userData: data})
+                                 // res.send("1");
+                                   }
+                                   else
+                                   {
+                                       console.log("motor not found")
+                                       res.send("buy motor")
+                                   }
+                               }
+                           })
                     }
 //password not match
                     else{
