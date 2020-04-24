@@ -241,17 +241,17 @@ con.query("select * from U42YZEoduq.FarmerDetail where aadharNO ='"+aadharno+"' 
                                        out.push("1")
                                        //for(var i = 0; i<resulta.length; i++ ){     
                                        // out.push(res[i]);
-                                       console.log(resulta);
-                                       console.log(resulta[0]);
+                                       //console.log(resulta);
+                                       //console.log(resulta[0]);
                                     out.push(resulta[0].temperature)
                                       out.push(resulta[0].humidity)
                                       out.push(resulta[0].moisture)
-                                      console.log(out[0]);
-                                      console.log(out[1])
-                                      console.log(out[2])
-                                      console.log(out[3]);
-                                      console.log(out);
-                                      res.send(resulta[0]);
+                                      //console.log(out[0]);
+                                      //console.log(out[1])
+                                      //console.log(out[2])
+                                     // console.log(out[3]);
+                                      //console.log(out);
+                                      res.send(out);
 
                             //}
                                   //res.render('user-list', { title: 'User List', userData: data})
