@@ -325,7 +325,7 @@ else if(usertype=="S")
 else if(usertype=="A")
 {
 //checking aadhar no found
-    con.query("select * from U42YZEoduq.Admin where aadharNO ='"+aadharno+"' ",function(err,resu){
+    con.query("select * from U42YZEoduq.AdminDetail where aadharNO ='"+aadharno+"' ",function(err,resu){
         if(err){
             throw err;
         }
@@ -334,7 +334,7 @@ else if(usertype=="A")
             if(resu.length)
             {
 //checking aadharno and password match
-                con.query("select * from U42YZEoduq.Admin where aadharNO='"+aadharno+"' and password='"+password+"'",function(e,r){
+                con.query("select * from U42YZEoduq.AdminDetail where aadharNO='"+aadharno+"' and password='"+password+"'",function(e,r){
                     if(e){
                         throw e;
                     }
