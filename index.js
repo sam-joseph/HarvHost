@@ -57,13 +57,13 @@ console.log("register trigger");
     var password = req.body.password;
     var confirmpassword = req.body.confirmpassword;
     var licid = req.body.licid;
-
-    if(username!=undefined && aadharno!=undefined && phoneno!=undefined && usertype!=undefined && password!=undefined && confirmpassword!=undefined)
+console.log(phoneno)
+    if(username!="" && aadharno!="" && phoneno!="" && usertype!=undefined && password!="" && confirmpassword!="")
     {
 //usertype = farmer
      if(usertype=="F")
       {
-          if(motorid!=undefined)
+          if(motorid!="")
           {
           console.log(username)
 //checking aadharNo
@@ -127,7 +127,7 @@ console.log("register trigger");
 //saler
         else if(usertype=="S")
         {
-            if(licid!=undefined)
+            if(licid!="")
             {
 //checking aadharno
             con.query("select * from U42YZEoduq.SellerDetails where aadharNo='"+aadharno+"'",function(err,re){
@@ -136,7 +136,8 @@ console.log("register trigger");
                     throw err;
                 }
                 else
-                { console.log(re.length)
+                { 
+                    //console.log(re.length)
                     if(re.length)
                     {
  //user alread registered
